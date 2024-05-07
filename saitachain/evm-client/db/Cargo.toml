@@ -1,0 +1,71 @@
+[package]
+name = "fc-db"
+version = "2.0.0-dev"
+license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
+description = "Frontier database backend"
+edition = "2021"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+async-trait = "0.1"
+
+ethereum = { version = "0.14.0", features = ["with-codec"], optional = true }
+futures = { version = "0.3.28", optional = true }
+kvdb-rocksdb = { version ="0.19.0", optional = true }
+log = { version = "0.4.20", default-features = false }
+parity-db = "0.4.10"
+
+parking_lot = "0.12.1"
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+smallvec = { version = "1.11", optional = true, default-features = false }
+sqlx = {  version = "0.7.1", features = ["runtime-tokio-native-tls", "sqlite"], optional = true, default-features = false }
+tokio = { version = "1.32.0", features = ["macros", "sync"], optional = true, default-features = false }
+# Substrate
+sc-client-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev",optional = true, default-features = false}
+sc-client-db = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true, default-features = false}
+sp-blockchain = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" , default-features = false}
+sp-database = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" , default-features = false}
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+sp-storage = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev",optional =true, default-features = false}
+# Frontier
+fc-api = { path = "../api", default-features = false}
+fc-storage = { version= "1.0.0-dev" , path= "../storage", optional=true }
+fp-consensus = {  version = "2.0.0-dev", path = "../../evm-primitives/consensus", features = ["default"], optional = true, default-features = false }
+fp-rpc = { path = "../../evm-primitives/rpc", features = ["default"], optional = true, default-features = false }
+fp-storage = { version = "2.0.0", path = "../../evm-primitives/storage", default-features = false }
+
+[dev-dependencies]
+futures = "0.3.28"
+
+maplit = "1.0.2"
+tempfile = "3.8.0"
+# Substrate
+sc-block-builder = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+substrate-test-runtime-client = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+[features]
+default = ["rocksdb"]
+rocksdb = [
+	"kvdb-rocksdb",
+	"sc-client-db/rocksdb",
+	"smallvec",
+]
+sql = [
+	"ethereum",
+	"futures",
+	"sqlx",
+	"tokio",
+	"sc-client-api",
+	"sp-api",
+	"sp-storage",
+	"fc-storage",
+	"fp-consensus",
+	"fp-rpc",
+]

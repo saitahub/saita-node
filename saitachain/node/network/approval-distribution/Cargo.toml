@@ -1,0 +1,34 @@
+[package]
+name = "saitama-approval-distribution"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+saitama-node-metrics = { path = "../../metrics" }
+saitama-node-network-protocol = { path = "../protocol" }
+saitama-node-primitives = { path = "../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+saitama-primitives = { path = "../../../primitives" }
+saitama-node-jaeger = { path = "../../jaeger" }
+rand = "0.8"
+
+futures = "0.3.21"
+futures-timer = "3.0.2"
+gum = { package = "tracing-gum", path = "../../gum" }
+
+[dev-dependencies]
+sp-authority-discovery = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", features = ["std"] }
+
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+saitama-primitives-test-helpers = { path = "../../../primitives/test-helpers" }
+
+assert_matches = "1.4.0"
+schnorrkel = { version = "0.9.1", default-features = false }
+rand_core = "0.5.1" # should match schnorrkel
+rand_chacha = "0.3.1"
+env_logger = "0.9.0"
+log = "0.4.17"

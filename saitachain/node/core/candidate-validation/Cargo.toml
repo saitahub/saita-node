@@ -1,0 +1,35 @@
+[package]
+name = "saitama-node-core-candidate-validation"
+description = "SaitaChain crate that implements the Candidate Validation subsystem. Handles requests to validate candidates according to a PVF."
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+async-trait = "0.1.57"
+futures = "0.3.21"
+futures-timer = "3.0.2"
+gum = { package = "tracing-gum", path = "../../gum" }
+
+sp-maybe-compressed-blob = { package = "sp-maybe-compressed-blob",  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["bit-vec", "derive"] }
+
+saitama-primitives = { path = "../../../primitives" }
+saitachain-parachain-primitives = { path = "../../../parachain" }
+saitama-node-primitives = { path = "../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+saitama-node-metrics = { path = "../../metrics" }
+saitama-overseer = { path = "../../overseer" }
+
+[target.'cfg(not(any(target_os = "android", target_os = "unknown")))'.dependencies]
+saitama-node-core-pvf = { path = "../pvf" }
+
+[dev-dependencies]
+sp-keyring = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+futures = { version = "0.3.21", features = ["thread-pool"] }
+assert_matches = "1.4.0"
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+sp-core = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+test-helpers = { package = "saitama-primitives-test-helpers", path = "../../../primitives/test-helpers" }

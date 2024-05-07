@@ -1,0 +1,56 @@
+[package]
+name = "test-parachain-undying-collator"
+description = "Collator for the undying test parachain"
+edition.workspace = true
+license.workspace = true
+version = "1.0.0"
+authors.workspace = true
+publish = false
+
+[[bin]]
+name = "undying-collator"
+path = "src/main.rs"
+
+[[bin]]
+name = "undying_collator_puppet_worker"
+path = "bin/puppet_worker.rs"
+required-features = ["test-utils"]
+
+[dependencies]
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["derive"] }
+clap = { version = "4.4.2", features = ["derive"] }
+futures = "0.3.19"
+futures-timer = "3.0.2"
+log = "0.4.17"
+
+test-parachain-undying = { path = ".." }
+saitama-primitives = { path = "../../../../primitives" }
+saitama-cli = { path = "../../../../cli" }
+saitama-service = { path = "../../../../node/service" }
+saitama-node-primitives = { path = "../../../../node/primitives" }
+saitama-node-subsystem = { path = "../../../../node/subsystem" }
+
+sc-cli = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-service = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+# This one is tricky. Even though it is not used directly by the collator, we still need it for the
+# `puppet_worker` binary, which is required for the integration test. However, this shouldn't be
+# a big problem since it is used transitively anyway.
+saitama-node-core-pvf = { path = "../../../../node/core/pvf", features = ["test-utils"], optional = true }
+
+[dev-dependencies]
+saitachain-parachain-primitives = { path = "../../.." }
+saitama-test-service = { path = "../../../../node/test/service" }
+# For the puppet worker, depend on ourselves with the test-utils feature.
+test-parachain-undying-collator = { path = "", features = ["test-utils"] }
+
+substrate-test-utils = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-service = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keyring = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+tokio = { version = "1.24.2", features = ["macros"] }
+
+[features]
+# This feature is used to export test code to other crates without putting it in the production build.
+# This is also used by the `puppet_worker` binary.
+test-utils = [ "saitama-node-core-pvf/test-utils" ]

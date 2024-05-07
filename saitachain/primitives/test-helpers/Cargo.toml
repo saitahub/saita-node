@@ -1,0 +1,15 @@
+[package]
+name = "saitama-primitives-test-helpers"
+publish = false
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+sp-keyring = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-application-crypto = { package = "sp-application-crypto", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", features = ["std"] }
+saitama-primitives = { path = ".." }
+rand = "0.8.5"

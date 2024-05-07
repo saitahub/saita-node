@@ -1,0 +1,24 @@
+[package]
+name = "saitama-node-core-provisioner"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
+futures = "0.3.21"
+gum = { package = "tracing-gum", path = "../../gum" }
+thiserror = "1.0.48"
+saitama-primitives = { path = "../../../primitives" }
+saitama-node-primitives = { path = "../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+futures-timer = "3.0.2"
+fatality = "0.0.6"
+
+[dev-dependencies]
+sp-application-crypto = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+test-helpers = { package = "saitama-primitives-test-helpers", path = "../../../primitives/test-helpers" }

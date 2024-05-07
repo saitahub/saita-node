@@ -1,0 +1,41 @@
+[package]
+name = "pallet-evm-chain-id"
+version = "1.0.0-dev"
+license = "Apache-2.0"
+description = "EVM chain id storage pallet."
+edition = "2021"
+
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+log = { version = "0.4.17", default-features = false }
+
+scale-info = { version = "2.9.0", default-features = false, features = ["derive"] }
+
+# Substrate
+
+frame-support = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+frame-system = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+
+[features]
+default = ["std"]
+std = [
+	"scale-codec/std",
+	"scale-info/std",
+	# Substrate
+	"frame-support/std",
+	"frame-system/std",
+	"sp-runtime/std",
+	"log/std",
+]
+try-runtime = [
+	"frame-support/try-runtime",
+	"frame-system/try-runtime",
+]

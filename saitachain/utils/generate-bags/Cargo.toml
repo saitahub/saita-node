@@ -1,0 +1,14 @@
+[package]
+name = "saitachain-voter-bags"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+clap = { version = "4.4.2", features = ["derive"] }
+
+generate-bags =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-io =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+
+saitama-runtime = { path = "../../runtime/saitachain" }

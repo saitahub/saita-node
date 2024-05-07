@@ -1,0 +1,29 @@
+[package]
+name = "xcm-executor-integration-tests"
+description = "Integration tests for the XCM Executor"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+version = "1.0.0"
+publish = false
+
+[dependencies]
+codec = { package = "parity-scale-codec", version = "3.6.1" }
+frame-support =  {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev",default-features = false }
+frame-system = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+futures = "0.3.21"
+pallet-xcm = { path = "../../pallet-xcm" }
+saitama-test-client = { path = "../../../node/test/client" }
+saitachain-test-runtime = { path = "../../../runtime/test-runtime" }
+saitama-test-service = { path = "../../../node/test/service" }
+sp-consensus = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-keyring = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-runtime = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev",default-features = false }
+sp-state-machine ={  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+xcm = { package = "staging-xcm", path = "../..", default-features = false }
+xcm-executor = { package = "staging-xcm-executor", path = ".." }
+sp-tracing = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+
+[features]
+default = [ "std" ]
+std = [ "frame-support/std", "sp-runtime/std", "xcm/std" ]

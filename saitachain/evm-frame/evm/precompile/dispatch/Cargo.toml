@@ -1,0 +1,41 @@
+[package]
+name = "pallet-evm-precompile-dispatch"
+version = "2.0.0-dev"
+license = "Apache-2.0"
+description = "DISPATCH precompiles for EVM pallet."
+edition = "2021"
+
+
+[dependencies]
+#scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+# Substrate
+
+frame-support = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+#sp-runtime = {path = "../../../../../substrate/primitives/runtime", default-features = false }
+
+# Frontier
+fp-evm = { version = "3.0.0-dev", path = "../../../../evm-primitives/evm", default-features = false }
+pallet-evm = { version = "6.0.0-dev", path = "../..", default-features = false }
+log = "0.4.20"
+
+[dev-dependencies]
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+scale-info = { version = "2.9.0", default-features = false, features = ["derive"] }
+
+# Substrate
+frame-system = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+pallet-balances = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false, features = ["default", "insecure_zero_ed"] }
+
+pallet-timestamp = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+pallet-utility = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-io = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-std = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+[features]
+default = ["std"]
+std = ["frame-support/std", "fp-evm/std", "pallet-evm/std"]

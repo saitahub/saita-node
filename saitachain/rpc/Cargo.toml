@@ -1,0 +1,63 @@
+[package]
+name = "saitachain-rpc"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+futures = { version = "0.3.21", features = [ "compat" ] }
+clap = { version = "4.2.5", features = ["derive"] }
+
+jsonrpsee = { version = "0.16.2", features = ["server"] }
+saitama-primitives = { path = "../primitives" }
+sc-client-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-blockchain =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-keystore =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-runtime =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-api =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-core =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+#sp-consensus = { path = "../../substrate/primitives/consensus/common" }
+sp-consensus-babe =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-manual-seal = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-consensus-aura = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-chain-spec = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-babe =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-babe-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-beefy =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-beefy-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-epochs =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-grandpa =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-consensus-grandpa-rpc = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-sync-state-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+#txpool-api = { package = "sc-transaction-pool-api", path = "../../substrate/client/transaction-pool/api" }
+frame-rpc-system = { package = "substrate-frame-rpc-system",   git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" } 
+mmr-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+pallet-transaction-payment-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sp-block-builder = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+substrate-state-trie-migration-rpc =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+saitama-runtime = { path = "../runtime/saitachain"}
+sp-inherents = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+
+consensus_common = { package = "sp-consensus",  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev"  }
+sc-transaction-pool-api =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-network-sync =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-network =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+sc-transaction-pool =  { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev" }
+
+# Frontier
+fc-cli = { path = "../evm-client/cli" }
+fc-consensus = { path = "../evm-client/consensus" }
+fc-db = { path = "../evm-client/db" }
+fc-mapping-sync = { path = "../evm-client/mapping-sync" }
+fc-rpc = { path = "../evm-client/rpc" }
+fc-rpc-core = { path = "../evm-client/rpc-core" }
+fp-consensus = { path = "../evm-primitives/consensus" }
+fp-dynamic-fee = { path = "../evm-primitives/dynamic-fee" }
+fp-evm = { path = "../evm-primitives/evm" }
+fp-rpc = { path = "../evm-primitives/rpc" }
+fp-storage = { path = "../evm-primitives/storage" }
+fc-storage = {path = "../evm-client/storage" }
+
+fc-api = { path = "../evm-client/api" }

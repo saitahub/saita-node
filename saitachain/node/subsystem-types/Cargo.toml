@@ -1,0 +1,25 @@
+[package]
+name = "saitama-node-subsystem-types"
+description = "Subsystem traits and message definitions"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+derive_more = "0.99.17"
+futures = "0.3.21"
+saitama-primitives = { path = "../../primitives" }
+saitama-node-primitives = { path = "../primitives" }
+saitama-node-network-protocol = { path = "../network/protocol" }
+saitachain-statement-table = { path = "../../statement-table" }
+orchestra = "0.0.5"
+sc-network = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-consensus-babe = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-authority-discovery = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-transaction-pool-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+smallvec = "1.8.0"
+substrate-prometheus-endpoint = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+thiserror = "1.0.48"
+async-trait = "0.1.57"

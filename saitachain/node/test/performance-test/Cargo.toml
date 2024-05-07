@@ -1,0 +1,30 @@
+[package]
+name = "saitama-performance-test"
+publish = false
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+thiserror = "1.0.48"
+quote = "1.0.28"
+env_logger = "0.9"
+log = "0.4"
+
+saitama-node-core-pvf-prepare-worker = { path = "../../core/pvf/prepare-worker" }
+saitama-erasure-coding = { path = "../../../erasure-coding" }
+saitama-node-primitives = { path = "../../primitives" }
+saitama-primitives = { path = "../../../primitives" }
+
+sc-executor-common = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-maybe-compressed-blob = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+[[bin]]
+name = "gen-ref-constants"
+path = "src/gen_ref_constants.rs"
+
+[features]
+runtime-benchmarks = [
+	"saitama-primitives/runtime-benchmarks",
+]

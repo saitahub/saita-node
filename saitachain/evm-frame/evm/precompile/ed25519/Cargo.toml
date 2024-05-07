@@ -1,0 +1,19 @@
+[package]
+name = "pallet-evm-precompile-ed25519"
+version = "2.0.0-dev"
+license = "Apache-2.0"
+description = "ED25519 precompiles for EVM pallet."
+edition = "2021"
+
+
+[dependencies]
+ed25519-dalek = { version = "2.0.0", default-features = false, features = ["alloc"] }
+# Frontier
+fp-evm = { version = "3.0.0-dev", path = "../../../../evm-primitives/evm", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+	# Frontier
+	"fp-evm/std",
+]

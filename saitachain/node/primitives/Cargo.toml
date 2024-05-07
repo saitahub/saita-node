@@ -1,0 +1,29 @@
+[package]
+name = "saitama-node-primitives"
+description = "Primitives types for the Node-side"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+bounded-vec = "0.7"
+futures = "0.3.21"
+saitama-primitives = { path = "../../primitives" }
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["derive"] }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-application-crypto = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-consensus-babe = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-maybe-compressed-blob = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-runtime = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+saitachain-parachain-primitives = { path = "../../parachain", default-features = false }
+schnorrkel = "0.9.1"
+thiserror = "1.0.48"
+serde = { version = "1.0.188", features = ["derive"] }
+
+[target.'cfg(not(target_os = "unknown"))'.dependencies]
+zstd = { version = "0.12.4", default-features = false }
+
+[dev-dependencies]
+saitama-erasure-coding = { path = "../../erasure-coding" }

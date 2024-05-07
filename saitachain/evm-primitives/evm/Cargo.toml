@@ -1,0 +1,40 @@
+[package]
+name = "fp-evm"
+version = "3.0.0-dev"
+license = "Apache-2.0"
+description = "Primitive EVM abstractions for Substrate."
+edition = "2021"
+
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+evm = { git = "https://github.com/rust-blockchain/evm", rev = "b7b82c7e1fc57b7449d6dfa6826600de37cc1e65", default-features = false , features = ["with-codec"] }
+
+
+#evm = { version = "0.40.0", default-features = false , features = ["with-codec"]}
+
+
+num_enum = { version = "0.7.0", default-features = false }
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+
+scale-info = { version = "2.9.0", default-features = false, features = ["derive"] }
+
+serde = { version = "1.0", default-features = false, optional = true ,features = ["derive", "alloc"] }
+
+# Substrate
+
+frame-support = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-runtime = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+sp-std = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+log = "0.4.20"
+
+[features]
+default = ["std"]
+std = ["evm/std", "evm/with-serde", "num_enum/std", "serde/std", "scale-codec/std", "frame-support/std", "sp-core/std", "sp-runtime/std", "sp-std/std"]
+serde = ["dep:serde", "evm/with-serde", "scale-info/serde", "sp-core/serde", "sp-runtime/serde"]

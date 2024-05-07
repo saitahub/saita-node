@@ -1,0 +1,103 @@
+[package]
+name = "pallet-ethereum"
+version = "4.0.0-dev"
+license = "Apache-2.0"
+description = "Ethereum compatibility full block processing emulation pallet for Substrate."
+edition = "2021"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+ethereum = { version = "0.14.0", features = [
+	"with-codec",
+], default-features = false }
+ethereum-types = { version = "0.14.1", default-features = false }
+evm = { git = "https://github.com/rust-blockchain/evm", rev = "b7b82c7e1fc57b7449d6dfa6826600de37cc1e65", features = [
+	"with-codec",
+], default-features = false }
+#evm = { version = "0.40.0", default-features = false , features = ["with-codec"]}
+
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = [
+	"derive",
+] }
+
+# rlp = { version = "0.5.2", default-features = false }
+
+
+scale-info = { version = "2.9.0", default-features = false, features = [
+	"derive",
+] }
+log = { version = "0.4.17", default-features = false }
+
+# Substrate
+
+frame-support = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+frame-system = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-io = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-runtime = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+sp-std = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+# Frontier
+fp-consensus = { version = "2.0.0-dev", path = "../../evm-primitives/consensus", default-features = false }
+fp-ethereum = { version = "1.0.0-dev", path = "../../evm-primitives/ethereum", default-features = false }
+fp-evm = { version = "3.0.0-dev", path = "../../evm-primitives/evm", default-features = false }
+fp-rpc = { version = "3.0.0-dev", path = "../../evm-primitives/rpc", default-features = false }
+fp-storage = { version = "2.0.0", path = "../../evm-primitives/storage", default-features = false }
+pallet-evm = { version = "6.0.0-dev", path = "../evm", default-features = false }
+
+fp-self-contained = { version = "1.0.0-dev", path = "../../evm-primitives/self-contained", default-features = false }
+
+
+
+[dev-dependencies]
+hex = "0.4.3"
+libsecp256k1 = { version = "0.7.1", features = ["static-context", "hmac"] }
+#rlp = { version = "0.5.2", default-features = false}
+# Substrate
+pallet-balances = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+#pallet-timestamp = { path = "../../../substrate/frame/timestamp", default-features = false}
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+# Frontier
+#fp-self-contained = { version = "1.0.0-dev", path = "../../evm-primitives/self-contained", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+	"ethereum/std",
+	"evm/std",
+	"ethereum-types/std",
+	# "rlp/std",
+	"scale-codec/std",
+	"scale-info/std",
+	# Substrate
+	"frame-support/std",
+	"frame-system/std",
+	"sp-io/std",
+	"sp-runtime/std",
+	"sp-std/std",
+	# Frontier
+	"fp-consensus/std",
+	"fp-ethereum/std",
+	"fp-evm/std",
+	"fp-rpc/std",
+	"fp-self-contained/std",
+	"fp-storage/std",
+	"pallet-evm/std",
+	"log/std",
+
+]
+runtime-benchmarks = [
+	"frame-support/runtime-benchmarks",
+	"frame-system/runtime-benchmarks",
+	"pallet-evm/runtime-benchmarks",
+
+]
+try-runtime = [
+	"frame-support/try-runtime",
+	"frame-system/try-runtime",
+	"pallet-evm/try-runtime",
+
+]
+forbid-evm-reentrancy = ["pallet-evm/forbid-evm-reentrancy"]

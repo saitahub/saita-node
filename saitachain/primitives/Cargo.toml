@@ -1,0 +1,58 @@
+[package]
+name = "saitama-primitives"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
+hex-literal = "0.4.1"
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["bit-vec", "derive"] }
+scale-info = { version = "2.5.0", default-features = false, features = ["bit-vec", "derive", "serde"] }
+serde = { version = "1.0.188", default-features = false, features = ["derive", "alloc"] }
+
+application-crypto = { package = "sp-application-crypto",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false, features = ["serde"] }
+inherents = { package = "sp-inherents", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+primitives = { package = "sp-core", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+runtime_primitives = { package = "sp-runtime", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-arithmetic = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false, features = ["serde"] }
+sp-authority-discovery = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false, features = ["serde"] }
+sp-consensus-slots = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false, features = ["serde"] }
+sp-io = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true }
+sp-staking = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false, features = ["serde"] }
+sp-std = { package = "sp-std", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+saitama-core-primitives = { path = "../core-primitives", default-features = false }
+saitachain-parachain-primitives = { path = "../parachain", default-features = false }
+liquid-staking-primitives = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+[features]
+default = [ "std" ]
+std = [
+	"application-crypto/std",
+	"bitvec/std",
+	"inherents/std",
+	"parity-scale-codec/std",
+	"saitama-core-primitives/std",
+	"saitachain-parachain-primitives/std",
+	"primitives/std",
+	"runtime_primitives/std",
+	"scale-info/std",
+	"serde/std",
+	"sp-api/std",
+	"sp-arithmetic/std",
+	"sp-authority-discovery/std",
+	"sp-consensus-slots/std",
+	"sp-io/std",
+	"sp-keystore",
+	"sp-staking/std",
+	"sp-std/std",
+]
+runtime-benchmarks = [
+	"saitachain-parachain-primitives/runtime-benchmarks",
+	"runtime_primitives/runtime-benchmarks",
+	"sp-staking/runtime-benchmarks",
+]

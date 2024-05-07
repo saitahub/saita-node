@@ -1,0 +1,60 @@
+[package]
+name = "fc-mapping-sync"
+version = "2.0.0-dev"
+license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
+description = "Mapping sync logic for Frontier."
+edition = "2021"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+futures = "0.3.28"
+
+futures-timer = "3.0.2"
+log = { version = "0.4.20" }
+parking_lot = "0.12.1"
+tokio = { version = "1.32.0", features = ["macros", "sync"], optional = true }
+# Substrate
+sc-client-api = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sc-utils = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-api = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-blockchain = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" ,features = ["default"]}
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false,optional = true }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+# Frontier
+fc-db = { path = "../db", default-features = false}
+fc-storage = { version= "1.0.0-dev" , path= "../storage", default-features = false }
+fp-consensus = { version = "2.0.0-dev", path = "../../evm-primitives/consensus", features = ["default"], default-features = false }
+fp-rpc = { version = "3.0.0-dev", path = "../../evm-primitives/rpc", features = ["default"] , default-features = false}
+
+[dev-dependencies]
+ethereum = {version = "0.14.0" , default-features = false}
+ethereum-types = { version = "0.14.1", default-features = false}
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+sqlx = { version = "0.7.1", features = ["runtime-tokio-native-tls", "sqlite"], default-features = false }
+tempfile = "3.8.0"
+tokio = { version = "1.32.0", features = ["sync"] , default-features = false}
+# Substrate
+sc-block-builder = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false}
+sc-client-db = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", features = ["rocksdb"], default-features = false }
+sp-consensus = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", features = ["default"] , default-features = false}
+sp-io = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+substrate-test-runtime-client = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+# Frontier
+fp-consensus = { version = "2.0.0-dev", path = "../../evm-primitives/consensus", features = ["default"] , default-features = false}
+fp-storage = { version = "2.0.0", path = "../../evm-primitives/storage", features = ["default"] , default-features = false}
+saitama-runtime = { version = "1.0.0-dev", path = "../../runtime/saitachain" , features = ["default"], default-features = false}
+
+[features]
+default = ["rocksdb"]
+rocksdb = ["fc-db/rocksdb"]
+sql = [
+	"tokio",
+	"sp-core",
+	"fc-db/sql",
+]

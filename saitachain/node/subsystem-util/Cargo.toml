@@ -1,0 +1,50 @@
+[package]
+name = "saitama-node-subsystem-util"
+description = "Subsystem traits and message definitions"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+async-trait = "0.1.57"
+futures = "0.3.21"
+futures-channel = "0.3.23"
+itertools = "0.10"
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["derive"] }
+parking_lot = "0.11.2"
+pin-project = "1.0.9"
+rand = "0.8.5"
+thiserror = "1.0.48"
+fatality = "0.0.6"
+gum = { package = "tracing-gum", path = "../gum" }
+derive_more = "0.99.17"
+schnellru = "0.2.1"
+
+saitama-node-subsystem = { path = "../subsystem" }
+saitama-node-jaeger = { path = "../jaeger" }
+saitama-node-metrics = { path = "../metrics" }
+saitama-node-network-protocol = { path = "../network/protocol" }
+saitama-primitives = { path = "../../primitives" }
+saitama-node-primitives = { path = "../primitives" }
+saitama-overseer = { path = "../overseer" }
+metered = { package = "prioritized-metered-channel", version = "0.2.0" }
+
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-application-crypto = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+kvdb = "0.13.0"
+parity-db = { version = "0.4.8"}
+
+[dev-dependencies]
+assert_matches = "1.4.0"
+env_logger = "0.9.0"
+futures = { version = "0.3.21", features = ["thread-pool"] }
+log = "0.4.17"
+saitama-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
+lazy_static = "1.4.0"
+saitama-primitives-test-helpers = { path = "../../primitives/test-helpers" }
+kvdb-shared-tests = "0.11.0"
+tempfile = "3.1.0"
+kvdb-memorydb = "0.13.0"

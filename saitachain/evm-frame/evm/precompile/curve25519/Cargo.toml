@@ -1,0 +1,20 @@
+[package]
+name = "pallet-evm-precompile-curve25519"
+version = "1.0.0-dev"
+authors = ["Saitama <admin@parity.io>", "Drew Stone <drew@webb.tools>"]
+license = "Apache-2.0"
+description = "Curve25519 elliptic curve precompiles for EVM pallet."
+edition = "2021"
+
+
+[dependencies]
+curve25519-dalek = { version = "4.1.0", default-features = false, features = ["alloc"] }
+# Frontier
+fp-evm = { version = "3.0.0-dev", path = "../../../../evm-primitives/evm", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+	# Frontier
+	"fp-evm/std",
+]

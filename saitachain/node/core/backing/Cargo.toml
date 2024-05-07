@@ -1,0 +1,31 @@
+[package]
+name = "saitama-node-core-backing"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+futures = "0.3.21"
+sp-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+saitama-primitives = { path = "../../../primitives" }
+saitama-node-primitives = { path = "../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+erasure-coding = { package = "saitama-erasure-coding", path = "../../../erasure-coding" }
+statement-table = { package = "saitachain-statement-table", path = "../../../statement-table" }
+bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
+gum = { package = "tracing-gum", path = "../../gum" }
+thiserror = "1.0.48"
+fatality = "0.0.6"
+
+[dev-dependencies]
+sp-core = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-application-crypto = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keyring = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-keystore = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-tracing = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+futures = { version = "0.3.21", features = ["thread-pool"] }
+assert_matches = "1.4.0"
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+test-helpers = { package = "saitama-primitives-test-helpers", path = "../../../primitives/test-helpers" }

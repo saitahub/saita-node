@@ -1,0 +1,12 @@
+[package]
+name = "saitama-node-subsystem"
+description = "Subsystem traits and message definitions and the generated overseer"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+saitama-overseer = { path = "../overseer" }
+saitama-node-subsystem-types = { path = "../subsystem-types" }
+saitama-node-jaeger = { path = "../jaeger" }

@@ -1,0 +1,253 @@
+// Copyright (C) Saitama (UK) Ltd.
+// This file is part of SaitaChain.
+
+// Saitama is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// Saitama is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with SaitaChain.  If not, see <http://www.gnu.org/licenses/>.
+
+//! Auxiliary `struct`/`enum`s for saitachain runtime.
+
+use crate::NegativeImbalance;
+use frame_support::traits::{Currency, Imbalance, OnUnbalanced};
+/// Logic for the author to get a portion of fees.
+pub struct ToAuthor<R>(sp_std::marker::PhantomData<R>);
+impl<R> OnUnbalanced<NegativeImbalance<R>> for ToAuthor<R>
+where
+	R: pallet_balances::Config + pallet_authorship::Config + pallet_reward::Config ,
+	<R as frame_system::Config>::AccountId: From<primitives::AccountId>,
+	<R as frame_system::Config>::AccountId: Into<primitives::AccountId>,
+{
+	fn on_nonzero_unbalanced(amount: NegativeImbalance<R>) {
+		if let Some(author) = <pallet_authorship::Pallet<R>>::author() {
+			<pallet_balances::Pallet<R>>::resolve_creating(&author.clone(), amount);
+		}
+	}
+}
+pub struct DealWithFees<R>(sp_std::marker::PhantomData<R>);
+impl<R> OnUnbalanced<NegativeImbalance<R>>
+	for DealWithFees<R>
+	where
+		R: pallet_balances::Config +
+			pallet_treasury::Config +
+			pallet_authorship::Config +
+			pallet_staking::Config ,
+		pallet_treasury::Pallet<R>: OnUnbalanced<NegativeImbalance<R>>,
+		<R as frame_system::Config>::AccountId: From<primitives::AccountId>,
+		<R as frame_system::Config>::AccountId: Into<primitives::AccountId>
+		
+{
+	fn on_unbalanceds<B>(mut fees_then_tips: impl Iterator<Item = NegativeImbalance<R>>) {
+		if let Some(fees) = fees_then_tips.next() {
+			let mut split = fees.ration(100, 0);
+			if let Some(tips) = fees_then_tips.next() {
+				tips.merge_into(&mut split.0);
+			}
+
+			use pallet_treasury::Pallet as Treasury;
+			<Treasury<R> as OnUnbalanced<_>>::on_unbalanced(split.0);
+		}
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use frame_support::{
+		dispatch::DispatchClass,
+		parameter_types,
+		traits::{ConstU32, FindAuthor},
+		weights::Weight,
+		PalletId,
+	};
+	use frame_system::limits;
+	use primitives::AccountId;
+	use sp_core::{ConstU64, H256};
+	use sp_runtime::{
+		traits::{BlakeTwo256, IdentityLookup},
+		BuildStorage, Perbill,
+	};
+
+	type Block = frame_system::mocking::MockBlock<Test>;
+	const TEST_ACCOUNT: AccountId = AccountId::new([1; 32]);
+
+	frame_support::construct_runtime!(
+		pub enum Test
+		{
+			System: frame_system::{Pallet, Call, Config<T>, Storage, Event<T>},
+			Authorship: pallet_authorship::{Pallet, Storage},
+			Balances: pallet_balances::{Pallet, Call, Storage, Config<T>, Event<T>},
+			Treasury: pallet_treasury::{Pallet, Call, Storage, Config<T>, Event<T>},
+		}
+	);
+
+	parameter_types! {
+		pub const BlockHashCount: u64 = 250;
+		pub BlockWeights: limits::BlockWeights = limits::BlockWeights::builder()
+			.base_block(Weight::from_parts(10, 0))
+			.for_class(DispatchClass::all(), |weight| {
+				weight.base_extrinsic = Weight::from_parts(100, 0);
+			})
+			.for_class(DispatchClass::non_mandatory(), |weight| {
+				weight.max_total = Some(Weight::from_parts(1024, u64::MAX));
+			})
+			.build_or_panic();
+		pub BlockLength: limits::BlockLength = limits::BlockLength::max(2 * 1024);
+		pub const AvailableBlockRatio: Perbill = Perbill::one();
+	}
+
+	impl frame_system::Config for Test {
+		type BaseCallFilter = frame_support::traits::Everything;
+		type RuntimeOrigin = RuntimeOrigin;
+		type Nonce = u64;
+		type RuntimeCall = RuntimeCall;
+		type Hash = H256;
+		type Hashing = BlakeTwo256;
+		type AccountId = AccountId;
+		type Lookup = IdentityLookup<Self::AccountId>;
+		type Block = Block;
+		type RuntimeEvent = RuntimeEvent;
+		type BlockHashCount = BlockHashCount;
+		type BlockLength = BlockLength;
+		type BlockWeights = BlockWeights;
+		type DbWeight = ();
+		type Version = ();
+		type PalletInfo = PalletInfo;
+		type AccountData = pallet_balances::AccountData<u64>;
+		type OnNewAccount = ();
+		type OnKilledAccount = ();
+		type SystemWeightInfo = ();
+		type SS58Prefix = ();
+		type OnSetCode = ();
+		type MaxConsumers = frame_support::traits::ConstU32<16>;
+	}
+
+	impl pallet_balances::Config for Test {
+		type Balance = u64;
+		type RuntimeEvent = RuntimeEvent;
+		type DustRemoval = ();
+		type ExistentialDeposit = ConstU64<1>;
+		type AccountStore = System;
+		type MaxLocks = ();
+		type MaxReserves = ();
+		type ReserveIdentifier = [u8; 8];
+		type WeightInfo = ();
+		type RuntimeHoldReason = RuntimeHoldReason;
+		type FreezeIdentifier = ();
+		type MaxHolds = ConstU32<1>;
+		type MaxFreezes = ConstU32<1>;
+	}
+
+	parameter_types! {
+		pub const TreasuryPalletId: PalletId = PalletId(*b"py/trsry");
+		pub const MaxApprovals: u32 = 100;
+	}
+
+	impl pallet_treasury::Config for Test {
+		type Currency = pallet_balances::Pallet<Test>;
+		type ApproveOrigin = frame_system::EnsureRoot<AccountId>;
+		type RejectOrigin = frame_system::EnsureRoot<AccountId>;
+		type RuntimeEvent = RuntimeEvent;
+		type OnSlash = ();
+		type ProposalBond = ();
+		type ProposalBondMinimum = ();
+		type ProposalBondMaximum = ();
+		type SpendPeriod = ();
+		type Burn = ();
+		type BurnDestination = ();
+		type PalletId = TreasuryPalletId;
+		type SpendFunds = ();
+		type MaxApprovals = MaxApprovals;
+		type WeightInfo = ();
+		type SpendOrigin = frame_support::traits::NeverEnsureOrigin<u64>;
+	}
+
+	pub struct OneAuthor;
+	impl FindAuthor<AccountId> for OneAuthor {
+		fn find_author<'a, I>(_: I) -> Option<AccountId>
+		where
+			I: 'a,
+		{
+			Some(TEST_ACCOUNT)
+		}
+	}
+	impl pallet_authorship::Config for Test {
+		type FindAuthor = OneAuthor;
+		type EventHandler = ();
+	}
+
+	pub fn new_test_ext() -> sp_io::TestExternalities {
+		let mut t = frame_system::GenesisConfig::<Test>::default().build_storage().unwrap();
+		// We use default for brevity, but you can configure as desired if needed.
+		pallet_balances::GenesisConfig::<Test>::default()
+			.assimilate_storage(&mut t)
+			.unwrap();
+		t.into()
+	}
+
+	#[test]
+	fn test_fees_and_tip_split() {
+		new_test_ext().execute_with(|| {
+			let fee = Balances::issue(10);
+			let tip = Balances::issue(20);
+
+			assert_eq!(Balances::free_balance(Treasury::account_id()), 0);
+			assert_eq!(Balances::free_balance(TEST_ACCOUNT), 0);
+
+			DealWithFees::on_unbalanceds(vec![fee, tip].into_iter());
+
+			// Author gets 100% of tip and 20% of fee = 22
+			assert_eq!(Balances::free_balance(TEST_ACCOUNT), 22);
+			// Treasury gets 80% of fee
+			assert_eq!(Balances::free_balance(Treasury::account_id()), 8);
+		});
+	}
+
+	#[test]
+	fn compute_inflation_should_give_sensible_results() {
+		assert_eq!(
+			pallet_staking_reward_fn::compute_inflation(
+				Perquintill::from_percent(75),
+				Perquintill::from_percent(75),
+				Perquintill::from_percent(5),
+			),
+			Perquintill::one()
+		);
+		assert_eq!(
+			pallet_staking_reward_fn::compute_inflation(
+				Perquintill::from_percent(50),
+				Perquintill::from_percent(75),
+				Perquintill::from_percent(5),
+			),
+			Perquintill::from_rational(2u64, 3u64)
+		);
+		assert_eq!(
+			pallet_staking_reward_fn::compute_inflation(
+				Perquintill::from_percent(80),
+				Perquintill::from_percent(75),
+				Perquintill::from_percent(5),
+			),
+			Perquintill::from_rational(1u64, 2u64)
+		);
+	}
+
+	#[test]
+	fn era_payout_should_give_sensible_results() {
+		assert_eq!(
+			era_payout(75, 100, Perquintill::from_percent(10), Perquintill::one(), 0,),
+			(10, 0)
+		);
+		assert_eq!(
+			era_payout(80, 100, Perquintill::from_percent(10), Perquintill::one(), 0,),
+			(6, 4)
+		);
+	}
+}

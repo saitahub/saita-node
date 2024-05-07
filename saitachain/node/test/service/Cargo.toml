@@ -1,0 +1,79 @@
+[package]
+name = "saitama-test-service"
+publish = false
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+futures = "0.3.21"
+hex = "0.4.3"
+gum = { package = "tracing-gum", path = "../../gum" }
+rand = "0.8.5"
+tempfile = "3.2.0"
+tokio = "1.24.2"
+
+# SaitaChain dependencies
+saitama-overseer = { path = "../../overseer" }
+saitama-primitives = { path = "../../../primitives" }
+saitachain-parachain-primitives = { path = "../../../parachain" }
+saitachain-rpc = { path = "../../../rpc" }
+saitama-runtime-common = { path = "../../../runtime/common" }
+saitama-service = { path = "../../service" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-primitives = { path = "../../primitives" }
+saitachain-test-runtime = { path = "../../../runtime/test-runtime" }
+test-runtime-constants = { path = "../../../runtime/test-runtime/constants" }
+saitama-runtime-parachains = { path = "../../../runtime/parachains" }
+
+# Substrate dependencies
+sp-authority-discovery = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-authority-discovery = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+babe = { package = "sc-consensus-babe",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+babe-primitives = { package = "sp-consensus-babe", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+consensus_common = { package = "sp-consensus",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-system = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+grandpa = { package = "sc-consensus-grandpa",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+grandpa_primitives = { package = "sp-consensus-grandpa",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+inherents = { package = "sp-inherents",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+pallet-staking = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+pallet-balances = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+pallet-transaction-payment = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-chain-spec = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-cli = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-client-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-network = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-tracing = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-transaction-pool = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-service = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-arithmetic = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-blockchain = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sp-keyring = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-state-machine = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+substrate-test-client = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+[dev-dependencies]
+pallet-balances = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+serde_json = "1.0.96"
+substrate-test-utils = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+tokio = { version = "1.24.2", features = ["macros"] }
+
+[features]
+runtime-metrics=[ "saitachain-test-runtime/runtime-metrics" ]
+runtime-benchmarks= [
+	"frame-system/runtime-benchmarks",
+	"pallet-balances/runtime-benchmarks",
+	"pallet-staking/runtime-benchmarks",
+	"saitachain-parachain-primitives/runtime-benchmarks",
+	"saitama-primitives/runtime-benchmarks",
+	"saitama-runtime-common/runtime-benchmarks",
+	"saitama-runtime-parachains/runtime-benchmarks",
+	"saitama-service/runtime-benchmarks",
+	"saitachain-test-runtime/runtime-benchmarks",
+	"sc-service/runtime-benchmarks",
+	"sp-runtime/runtime-benchmarks",
+]

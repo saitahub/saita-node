@@ -1,0 +1,143 @@
+[package]
+name = "saitama-runtime-common"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+impl-trait-for-tuples = "0.2.2"
+bitvec = { version = "1.0.0", default-features = false, features = ["alloc"] }
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["derive"] }
+log = { version = "0.4.17", default-features = false }
+rustc-hex = { version = "2.1.0", default-features = false }
+scale-info = { version = "2.5.0", default-features = false, features = ["derive"] }
+serde = { version = "1.0.188", default-features = false, features = ["alloc"] }
+serde_derive = { version = "1.0.117" }
+static_assertions = "1.1.0"
+
+sp-api = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+inherents = { package = "sp-inherents",  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+sp-std = { package = "sp-std",  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+sp-io ={  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+sp-runtime = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false, features=["serde"]}
+sp-session = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false}
+sp-staking = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false, features=["serde"] }
+sp-core = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false, features=["serde"]}
+sp-npos-elections = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false, features=["serde"] }
+
+pallet-authorship = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-balances = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-fast-unstake = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false}
+pallet-session = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+frame-support = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-staking = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false}
+frame-system = {   git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-timestamp = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-vesting = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false}
+pallet-transaction-payment = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-treasury = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-election-provider-multi-phase = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+frame-election-provider-support = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+
+frame-benchmarking = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false, optional = true }
+pallet-babe = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false, optional = true }
+pallet-reward = {   git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false}
+primitives = { package = "saitama-primitives", path = "../../primitives", default-features = false }
+libsecp256k1 = { version = "0.7.0", default-features = false }
+runtime-parachains = { package = "saitama-runtime-parachains", path = "../parachains", default-features = false }
+
+slot-range-helper = { path = "slot_range_helper", default-features = false }
+xcm = { package = "staging-xcm", path = "../../xcm", default-features = false }
+
+[dev-dependencies]
+hex-literal = "0.4.1"
+frame-support-test = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-babe = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+pallet-treasury = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+sp-keystore = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+sp-keyring = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git" , branch = "dev", default-features = false }
+serde_json = "1.0.96"
+libsecp256k1 = "0.7.0"
+test-helpers = { package = "saitama-primitives-test-helpers", path = "../../primitives/test-helpers" }
+
+[features]
+default = [ "std" ]
+experimental = [ "frame-support/experimental" ]
+no_std = []
+std = [
+	"bitvec/std",
+	"frame-benchmarking?/std",
+	"frame-election-provider-support/std",
+	"frame-support/std",
+	"frame-system/std",
+	"inherents/std",
+	"libsecp256k1/std",
+	"log/std",
+	"pallet-authorship/std",
+	"pallet-balances/std",
+	"pallet-reward/std",
+	"pallet-election-provider-multi-phase/std",
+	"pallet-fast-unstake/std",
+	"pallet-session/std",
+	"pallet-staking/std",
+	"pallet-timestamp/std",
+	"pallet-transaction-payment/std",
+	"pallet-treasury/std",
+	"pallet-vesting/std",
+	"parity-scale-codec/std",
+	"primitives/std",
+	"runtime-parachains/std",
+	"rustc-hex/std",
+	"scale-info/std",
+	"serde/std",
+	"slot-range-helper/std",
+	"sp-api/std",
+	"sp-core/std",
+	"sp-io/std",
+	"sp-npos-elections/std",
+	"sp-runtime/std",
+	"sp-session/std",
+	"sp-staking/std",
+	"sp-std/std",
+	"xcm/std",
+]
+runtime-benchmarks = [
+	"frame-benchmarking/runtime-benchmarks",
+	"frame-election-provider-support/runtime-benchmarks",
+	"frame-support/runtime-benchmarks",
+	"frame-system/runtime-benchmarks",
+	"libsecp256k1/hmac",
+	"libsecp256k1/static-context",
+	"pallet-babe/runtime-benchmarks",
+	"pallet-balances/runtime-benchmarks",
+	"pallet-election-provider-multi-phase/runtime-benchmarks",
+	"pallet-fast-unstake/runtime-benchmarks",
+	"pallet-staking/runtime-benchmarks",
+	"pallet-timestamp/runtime-benchmarks",
+	"pallet-treasury/runtime-benchmarks",
+	"pallet-vesting/runtime-benchmarks",
+	"primitives/runtime-benchmarks",
+	"runtime-parachains/runtime-benchmarks",
+	"sp-runtime/runtime-benchmarks",
+	"sp-staking/runtime-benchmarks",
+]
+try-runtime = [
+	"frame-election-provider-support/try-runtime",
+	"frame-support-test/try-runtime",
+	"frame-support/try-runtime",
+	"frame-system/try-runtime",
+	"pallet-authorship/try-runtime",
+	"pallet-babe?/try-runtime",
+	"pallet-balances/try-runtime",
+	"pallet-election-provider-multi-phase/try-runtime",
+	"pallet-fast-unstake/try-runtime",
+	"pallet-session/try-runtime",
+	"pallet-staking/try-runtime",
+	"pallet-timestamp/try-runtime",
+	"pallet-transaction-payment/try-runtime",
+	"pallet-treasury/try-runtime",
+	"pallet-vesting/try-runtime",
+	"runtime-parachains/try-runtime",
+	"sp-runtime/try-runtime",
+]

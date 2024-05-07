@@ -1,0 +1,36 @@
+[package]
+name = "saitama-gossip-support"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+sp-application-crypto = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-network = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-network-common = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+saitama-node-network-protocol = { path = "../protocol" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+saitama-primitives = { path = "../../../primitives" }
+
+futures = "0.3.21"
+futures-timer = "3.0.2"
+rand = { version = "0.8.5", default-features = false }
+rand_chacha = { version = "0.3.1", default-features = false }
+gum = { package = "tracing-gum", path = "../../gum" }
+
+[dev-dependencies]
+sp-keyring = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-consensus-babe = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-tracing = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-authority-discovery = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+
+assert_matches = "1.4.0"
+async-trait = "0.1.57"
+lazy_static = "1.4.0"

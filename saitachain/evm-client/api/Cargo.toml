@@ -1,0 +1,22 @@
+[package]
+name = "fc-api"
+version = "1.0.0-dev"
+license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
+description = "Frontier client interfaces"
+edition = "2021"
+
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+async-trait = "0.1"
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+# Substrate
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false}
+
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+# Frontier
+ fp-storage = { version = "2.0.0", path = "../../evm-primitives/storage", default-features = false }
+

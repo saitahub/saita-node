@@ -1,0 +1,30 @@
+[package]
+name = "saitama-node-core-prospective-parachains"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+futures = "0.3.19"
+gum = { package = "tracing-gum", path = "../../gum" }
+parity-scale-codec = "3.6.4"
+thiserror = "1.0.48"
+fatality = "0.0.6"
+bitvec = "1"
+
+saitama-primitives = { path = "../../../primitives" }
+saitama-node-primitives = { path = "../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+
+[dev-dependencies]
+assert_matches = "1"
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+saitama-node-subsystem-types = { path = "../../subsystem-types" }
+saitama-primitives-test-helpers = { path = "../../../primitives/test-helpers" }
+sp-core = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-application-crypto = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keyring = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }

@@ -1,0 +1,48 @@
+[package]
+name = "saitama-test-client"
+publish = false
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["derive"] }
+
+# SaitaChain dependencies
+saitachain-test-runtime = { path = "../../../runtime/test-runtime" }
+saitama-test-service = { path = "../service" }
+saitama-primitives = { path = "../../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+
+# Substrate dependencies
+substrate-test-client = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-service = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-block-builder = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-offchain = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-blockchain = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-inherents = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-timestamp = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-consensus-babe = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-state-machine = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-io = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-benchmarking = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+[dev-dependencies]
+sp-keyring = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+futures = "0.3.21"
+
+[features]
+runtime-benchmarks= [
+	"frame-benchmarking/runtime-benchmarks",
+	"saitama-primitives/runtime-benchmarks",
+	"saitachain-test-runtime/runtime-benchmarks",
+	"saitama-test-service/runtime-benchmarks",
+	"sc-service/runtime-benchmarks",
+	"sp-runtime/runtime-benchmarks",
+]

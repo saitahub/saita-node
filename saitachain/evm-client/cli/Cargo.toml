@@ -1,0 +1,49 @@
+[package]
+name = "fc-cli"
+version = "1.0.0-dev"
+license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
+description = "Frontier CLI interface"
+edition = "2021"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+clap = { version = "4.4.3", features = ["derive", "deprecated"] }
+ethereum-types = { version = "0.14.1", default-features = false }
+serde = { version = "1.0", default-features = false, features = ["derive", "alloc"] }
+serde_json = "1.0" 
+# Substrate
+sc-cli = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+sp-blockchain = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev",default-features = false }
+sp-runtime = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+
+# Frontier
+fc-db = { path = "../db" }
+fp-rpc = { version = "3.0.0-dev", path = "../../evm-primitives/rpc", features = ["default"] }
+fp-storage = { version = "2.0.0", path = "../../evm-primitives/storage" , features = ["default"]}
+
+[dev-dependencies]
+futures = "0.3.28"
+
+scale-codec = { package = "parity-scale-codec", version = "3.6.4", default-features = false, features = ["derive"] }
+
+tempfile = "3.3.0"
+# Substrate
+sc-block-builder = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-client-db = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", features = ["rocksdb"] }
+sp-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sp-io = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+substrate-test-runtime-client = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+# Frontier
+fc-api = { path = "../api" }
+fc-db = { path = "../db" , features = ["rocksdb"] }
+saitama-runtime = { version = "1.0.0-dev", path = "../../runtime/saitachain" }
+
+[features]
+default = ["rocksdb"]
+rocksdb = [
+	"sc-cli/rocksdb",
+	"fc-db/rocksdb",
+]

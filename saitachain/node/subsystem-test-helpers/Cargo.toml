@@ -1,0 +1,24 @@
+[package]
+name = "saitama-node-subsystem-test-helpers"
+description = "Subsystem traits and message definitions"
+publish = false
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+async-trait = "0.1.57"
+futures = "0.3.21"
+parking_lot = "0.12.0"
+saitama-node-subsystem = { path = "../subsystem" }
+saitama-node-subsystem-util = { path = "../subsystem-util" }
+saitama-primitives = { path = "../../primitives" }
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-keystore = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sp-keyring = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sp-application-crypto = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+[dev-dependencies]
+saitama-overseer = { path = "../overseer" }

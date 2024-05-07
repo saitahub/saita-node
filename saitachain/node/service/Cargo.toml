@@ -1,0 +1,283 @@
+[package]
+name = "saitama-service"
+rust-version = "1.60"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+# Substrate Client
+
+jsonrpsee = { version = "0.16.2", features = ["server"] }
+clap = { version = "4.2.5", features = ["derive"], optional = true }
+
+sc-authority-discovery = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+babe = { package = "sc-consensus-babe",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+beefy = { package = "sc-consensus-beefy", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+grandpa = { package = "sc-consensus-grandpa",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+mmr-gadget = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sp-mmr-primitives = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-block-builder = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-chain-spec = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-client-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-client-db = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus-slots = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus-babe-rpc = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus-beefy-rpc = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus-grandpa-rpc = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+#sc-consensus-babe = { path = "../../../substrate/client/consensus/babe" }
+
+#txpool-api = { package = "sc-transaction-pool-api", path = "../../../substrate/client/transaction-pool/api" }
+
+frame-rpc-system = { package = "substrate-frame-rpc-system", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+mmr-rpc = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+substrate-state-trie-migration-rpc = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-rpc = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-consensus-epochs = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+
+sc-executor = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-network = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-network-common = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-network-sync = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-transaction-pool = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-transaction-pool-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+sc-sync-state-rpc = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-keystore = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-basic-authorship = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-offchain = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-sysinfo = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+service = { package = "sc-service",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", default-features = false }
+telemetry = { package = "sc-telemetry",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+# Substrate Primitives
+sp-authority-discovery = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+consensus_common = { package = "sp-consensus",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+beefy-primitives = { package = "sp-consensus-beefy",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+grandpa_primitives = { package = "sp-consensus-grandpa", git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-inherents = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keyring = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-api = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-block-builder = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-blockchain = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-core = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-io = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keystore = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-offchain = { package = "sp-offchain",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-runtime = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-session = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-storage = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-transaction-pool = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+pallet-transaction-payment = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-timestamp = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-consensus-babe = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-state-machine = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-weights = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-version = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+pallet-transaction-payment-rpc = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+# Substrate Pallets
+pallet-babe = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev"}
+pallet-im-online = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+pallet-staking = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+pallet-transaction-payment-rpc-runtime-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-system = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+# Substrate Other
+frame-system-rpc-runtime-api = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+prometheus-endpoint = { package = "substrate-prometheus-endpoint",git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-support = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-benchmarking-cli = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-benchmarking = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+# External Crates
+futures = "0.3.21"
+array-bytes       = { version = "6.2" }
+hex-literal = "0.4.1"
+gum = { package = "tracing-gum", path = "../gum" }
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.96"
+thiserror = "1.0.48"
+kvdb = "0.13.0"
+kvdb-rocksdb = { version = "0.19.0", optional = true }
+parity-db = { version = "0.4.8", optional = true }
+codec = { package = "parity-scale-codec", version = "3.6.1" }
+
+async-trait = "0.1.57"
+schnellru = "0.2.1"
+log = "0.4.17"
+is_executable = "1.0.1"
+
+# SaitaChain
+saitama-core-primitives = { path = "../../core-primitives" }
+saitama-node-core-parachains-inherent = { path = "../core/parachains-inherent" }
+saitama-overseer = { path = "../overseer" }
+saitachain-parachain-primitives = { path = "../../parachain" }
+saitama-primitives = { path = "../../primitives" }
+saitama-node-primitives = { path = "../primitives" }
+saitachain-rpc = { path = "../../rpc" }
+saitama-node-subsystem = { path = "../subsystem" }
+saitama-node-subsystem-util = { path = "../subsystem-util" }
+saitama-node-subsystem-types = { path = "../subsystem-types" }
+saitama-runtime-parachains = { path = "../../runtime/parachains" }
+saitama-node-network-protocol = { path = "../network/protocol" }
+saitama-runtime-common = { path = "../../runtime/common" }
+#saitama-client = { path = "../../client", default-features = false, optional = true }
+
+# SaitaChain Runtime Constants
+saitama-runtime-constants = { path = "../../runtime/saitachain/constants", optional = true }
+
+# SaitaChain Runtimes
+saitama-runtime = { path = "../../runtime/saitachain", optional = true }
+
+# SaitaChain Subsystems
+saitama-approval-distribution = { path = "../network/approval-distribution", optional = true }
+saitama-availability-bitfield-distribution = { path = "../network/bitfield-distribution", optional = true }
+saitama-availability-distribution = { path = "../network/availability-distribution", optional = true }
+saitama-availability-recovery = { path = "../network/availability-recovery", optional = true }
+saitama-collator-protocol = { path = "../network/collator-protocol", optional = true }
+saitama-dispute-distribution = { path = "../network/dispute-distribution", optional = true }
+saitama-gossip-support = { path = "../network/gossip-support", optional = true }
+saitama-network-bridge = { path = "../network/bridge", optional = true }
+saitama-node-collation-generation = { path = "../collation-generation", optional = true }
+saitama-node-core-approval-voting = { path = "../core/approval-voting", optional = true }
+saitama-node-core-av-store = { path = "../core/av-store", optional = true }
+saitama-node-core-backing = { path = "../core/backing", optional = true }
+saitama-node-core-bitfield-signing = { path = "../core/bitfield-signing", optional = true }
+saitama-node-core-candidate-validation = { path = "../core/candidate-validation", optional = true }
+saitama-node-core-chain-api = { path = "../core/chain-api", optional = true }
+saitama-node-core-chain-selection = { path = "../core/chain-selection", optional = true }
+saitama-node-core-dispute-coordinator = { path = "../core/dispute-coordinator", optional = true }
+saitama-node-core-prospective-parachains = { path = "../core/prospective-parachains", optional = true }
+saitama-node-core-provisioner = { path = "../core/provisioner", optional = true }
+saitama-node-core-pvf = { path = "../core/pvf", optional = true }
+saitama-node-core-pvf-checker = { path = "../core/pvf-checker", optional = true }
+saitama-node-core-runtime-api = { path = "../core/runtime-api", optional = true }
+saitama-statement-distribution = { path = "../network/statement-distribution", optional = true }
+
+
+# Frontier
+fc-cli = { path = "../../evm-client/cli" }
+fc-consensus = { path = "../../evm-client/consensus" }
+fc-db = { path = "../../evm-client/db" }
+fc-storage = {path = "../../evm-client/storage" }
+
+fc-mapping-sync = { path = "../../evm-client/mapping-sync",features = ["sql"] }
+fc-rpc = { path = "../../evm-client/rpc" }
+fc-rpc-core = { path = "../../evm-client/rpc-core" }
+fp-consensus = { path = "../../evm-primitives/consensus" }
+fp-account = { path = "../../evm-primitives/account" }
+fp-dynamic-fee = { path = "../../evm-primitives/dynamic-fee" }
+fp-evm = { path = "../../evm-primitives/evm" }
+fp-rpc = { path = "../../evm-primitives/rpc" }
+fp-storage = { path = "../../evm-primitives/storage" }
+pallet-evm = {path = "../../evm-frame/evm"}
+pallet-ethereum = {path = "../../evm-frame/ethereum"}
+
+
+
+
+
+[dev-dependencies]
+saitama-test-client = { path = "../test/client" }
+saitama-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
+env_logger = "0.9.0"
+assert_matches = "1.5.0"
+serial_test = "2.0.0"
+tempfile = "3.2"
+
+[features]
+default = [ "db", "full-node" ]
+
+db = [ "service/rocksdb" ]
+
+full-node = [
+	"kvdb-rocksdb",
+	"parity-db",
+	"saitama-approval-distribution",
+	"saitama-availability-bitfield-distribution",
+	"saitama-availability-distribution",
+	"saitama-availability-recovery",
+	"saitama-collator-protocol",
+	"saitama-dispute-distribution",
+	"saitama-gossip-support",
+	"saitama-network-bridge",
+	"saitama-node-collation-generation",
+	"saitama-node-core-approval-voting",
+	"saitama-node-core-av-store",
+	"saitama-node-core-backing",
+	"saitama-node-core-bitfield-signing",
+	"saitama-node-core-candidate-validation",
+	"saitama-node-core-chain-api",
+	"saitama-node-core-chain-selection",
+	"saitama-node-core-dispute-coordinator",
+	"saitama-node-core-prospective-parachains",
+	"saitama-node-core-provisioner",
+	"saitama-node-core-pvf",
+	"saitama-node-core-pvf-checker",
+	"saitama-node-core-runtime-api",
+	"saitama-statement-distribution",
+	#"saitama-client",
+]
+
+sql = [
+	"fc-db/sql",
+	"fc-mapping-sync/sql",
+]
+
+# Configure the native runtimes to use. SaitaChain is enabled by default.
+#
+# Validators require the native runtime currently
+saitachain-native = [ "saitama-runtime", "saitama-runtime-constants" ]
+
+
+runtime-benchmarks = [
+	"frame-benchmarking-cli/runtime-benchmarks",
+	"frame-benchmarking/runtime-benchmarks",
+	"frame-support/runtime-benchmarks",
+	"frame-system/runtime-benchmarks",
+	"pallet-babe/runtime-benchmarks",
+	"pallet-im-online/runtime-benchmarks",
+	"pallet-staking/runtime-benchmarks",
+	"saitachain-parachain-primitives/runtime-benchmarks",
+	"saitama-primitives/runtime-benchmarks",
+	"saitama-runtime-common/runtime-benchmarks",
+	"saitama-runtime-parachains/runtime-benchmarks",
+	"saitama-runtime?/runtime-benchmarks",
+	"saitama-test-client/runtime-benchmarks",
+	"sc-client-db/runtime-benchmarks",
+	"service/runtime-benchmarks",
+	"sp-runtime/runtime-benchmarks",
+]
+try-runtime = [
+	"frame-support/try-runtime",
+	"frame-system/try-runtime",
+	"pallet-babe/try-runtime",
+	"pallet-im-online/try-runtime",
+	"pallet-staking/try-runtime",
+	"pallet-transaction-payment/try-runtime",
+	"saitama-runtime-common/try-runtime",
+	"saitama-runtime-parachains/try-runtime",
+	"saitama-runtime?/try-runtime",
+	"sp-runtime/try-runtime",
+]
+fast-runtime = [
+	"saitama-runtime?/fast-runtime",
+
+]
+
+malus = [ "full-node" ]
+runtime-metrics = [
+#	"saitama-client/runtime-metrics",
+	"saitama-runtime-parachains/runtime-metrics",
+	"saitama-runtime?/runtime-metrics",
+
+]
+
+network-protocol-staging = [
+	"saitama-node-network-protocol/network-protocol-staging",
+]

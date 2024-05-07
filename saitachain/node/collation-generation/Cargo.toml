@@ -1,0 +1,25 @@
+[package]
+name = "saitama-node-collation-generation"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+futures = "0.3.21"
+gum = { package = "tracing-gum", path = "../gum" }
+saitama-erasure-coding = { path = "../../erasure-coding" }
+saitama-node-primitives = { path = "../primitives" }
+saitama-node-subsystem = { path = "../subsystem" }
+saitama-node-subsystem-util = { path = "../subsystem-util" }
+saitama-primitives = { path = "../../primitives" }
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-maybe-compressed-blob  = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+thiserror = "1.0.48"
+parity-scale-codec = { version = "3.6.1", default-features = false, features = ["bit-vec", "derive"] }
+
+[dev-dependencies]
+saitama-node-subsystem-test-helpers = { path = "../subsystem-test-helpers" }
+test-helpers = { package = "saitama-primitives-test-helpers", path = "../../primitives/test-helpers" }
+assert_matches = "1.4.0"
+sp-keyring = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }

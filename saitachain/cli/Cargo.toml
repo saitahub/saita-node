@@ -1,0 +1,80 @@
+[package]
+name = "saitama-cli"
+description = "SaitaChain Relay-chain Client Node"
+version = "1.1.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[package.metadata.wasm-pack.profile.release]
+# `wasm-opt` has some problems on Linux, see
+# https://github.com/rustwasm/wasm-pack/issues/781 etc.
+wasm-opt = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+clap = { version = "4.4.2", features = ["derive"], optional = true }
+log = "0.4.17"
+thiserror = "1.0.48"
+futures = "0.3.21"
+pyro = { package = "pyroscope", version = "0.5.3", optional = true }
+pyroscope_pprofrs = { version = "0.2", optional = true }
+
+service = { package = "saitama-service", path = "../node/service", default-features = false, optional = true }
+saitama-performance-test = { path = "../node/test/performance-test", optional = true }
+
+sp-core = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-io = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-keyring = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sp-maybe-compressed-blob = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+frame-benchmarking-cli = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true }
+try-runtime-cli = {git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true }
+sc-cli = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true }
+sc-service = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true }
+saitama-node-metrics = { path = "../node/metrics" }
+sc-tracing = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev", optional = true }
+sc-sysinfo = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-executor = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+sc-storage-monitor = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+[build-dependencies]
+substrate-build-script-utils = { git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+
+[features]
+default = [ "cli", "db", "full-node" ]
+db = [ "service/db" ]
+cli = [
+	"clap",
+	"frame-benchmarking-cli",
+	"sc-cli",
+	"sc-service",
+	"sc-tracing",
+	"service",
+	"try-runtime-cli",
+]
+runtime-benchmarks = [
+	"frame-benchmarking-cli?/runtime-benchmarks",
+	"saitama-node-metrics/runtime-benchmarks",
+	"saitama-performance-test?/runtime-benchmarks",
+	"sc-service?/runtime-benchmarks",
+	"service/runtime-benchmarks",
+]
+full-node = [ "service/full-node" ]
+try-runtime = [ "service/try-runtime", "try-runtime-cli/try-runtime" ]
+fast-runtime = [ "service/fast-runtime" ]
+pyroscope = [ "pyro", "pyroscope_pprofrs" ]
+hostperfcheck = [ "saitama-performance-test" ]
+
+# Configure the native runtimes to use. SaitaChain is enabled by default.
+#
+# Validators require the native runtime currently
+saitachain-native = [ "service/saitachain-native" ]
+
+malus = [ "full-node", "service/malus" ]
+runtime-metrics = [
+	"saitama-node-metrics/runtime-metrics",
+	"service/runtime-metrics",
+]
+network-protocol-staging = [ "service/network-protocol-staging" ]

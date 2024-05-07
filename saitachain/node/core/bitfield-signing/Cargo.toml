@@ -1,0 +1,20 @@
+[package]
+name = "saitama-node-core-bitfield-signing"
+version = "1.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+futures = "0.3.21"
+gum = { package = "tracing-gum", path = "../../gum" }
+saitama-primitives = { path = "../../../primitives" }
+saitama-node-subsystem = { path = "../../subsystem" }
+saitama-node-subsystem-util = { path = "../../subsystem-util" }
+sp-keystore = {  git = "ssh://git@github.com/saitamahub/Saita-substrate.git", branch = "dev" }
+wasm-timer = "0.2.5"
+thiserror = "1.0.48"
+
+[dev-dependencies]
+saitama-node-subsystem-test-helpers = { path = "../../subsystem-test-helpers" }
+test-helpers = { package = "saitama-primitives-test-helpers", path = "../../../primitives/test-helpers" }

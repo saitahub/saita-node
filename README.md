@@ -84,24 +84,29 @@ The following steps mentioned below are to be followed for node installation usi
 
 Note: You need to use Docker to run your code. Since this process is a bit advanced, you need to be familiar with Docker and node setup experience using Docker. Also, when you run a saitachain node, the process only listens to the local host by default.
 
-Step 1: Log in to the cloud server (AWS | AZURE | GCP etc)
-Step 2: Open the terminal
-Step 3: Download the Docker image using the following command: 
+<p> Step 1: Log in to the cloud server (AWS | AZURE | GCP etc) </p>
+<p> Step 2: Open the terminal </p>
+<p> Step 3: Download the Docker image using the following command: </p> 
+
 ```
 sudo docker pull saitachain/sbc-mainnet-node:latest
 ```
-Step 4: Run the dockersied RPC Command:
-Full Node Command:
+<p> Step 4: Run the dockersied RPC Command: </p>
+
+<p>Full Node Command:</p>
+
 ```
 sudo docker run -d -p 9944:9944 -p 30333:30333 -v /external_volume/volume_name:/data saitachain/sbc-mainnet-node:latest --base-path /tmp/user_input --port 30333 --rpc-port 9944 --no-telemetry --rpc-methods Unsafe --rpc-external --name user_input --rpc-cors all
 ```
 
-Validator Node Command:
+<p> Validator Node Command: </p>
+
 ```
 sudo docker run -d -p 9944:9944 -p 30333:30333 -v /external_volume/volume_name:/data saitachain/sbc-mainnet-node:latest --base-path /tmp/user_input --port 30333 --rpc-port 9944 --no-telemetry --validator --rpc-methods Unsafe --rpc-external --name user_input --rpc-cors all --discover-local
 ```
 
-Archive Node Command:
+<p> Archive Node Command: </p>
+
 ```
 sudo docker run -d -p 9944:9944 -p 30333:30333 -v /external_volume/volume_name:/data saitachain/sbc-mainnet-node:latest --base-path /tmp/user_input --port 30333 --rpc-port 9944 --no-telemetry --rpc-methods Unsafe --rpc-external --name user_input --rpc-cors all --pruning archive --discover-local
 ```
